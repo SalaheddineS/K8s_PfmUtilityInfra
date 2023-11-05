@@ -1,0 +1,40 @@
+# Ignore Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfplan
+
+# Ignore any .terraform directories
+**/.terraform/
+
+# Ignore provider and backend configuration files
+*.tfvars
+*.tfvars.json
+
+# Ignore sensitive variable files
+*.tfvars
+
+# Ignore any custom modules or scripts that may contain sensitive information
+modules/
+scripts/
+
+# Ignore any environment configuration files
+*.env
+
+# Ignore IDE-specific files and directories
+.vscode/
+.idea/
+
+# Exclude any temporary or backup files
+*.bak
+*.tmp
+*.backup
+
+# Exclude any logs or output files
+*.log
+*.out
+
+# Exclude system-specific files and folders
+.DS_Store
+Thumbs.db
+
+# Add any other sensitive file patterns as needed
