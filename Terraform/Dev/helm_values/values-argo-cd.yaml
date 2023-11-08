@@ -1770,7 +1770,7 @@ server:
     # -- The name of the Secret that will be automatically created and managed by this Certificate resource
     secretName: argocd-server-tls
     # -- Certificate primary domain (commonName)
-    domain: argocd.example.com
+    domain: argocd.com
     # -- Certificate Subject Alternate Names (SANs)
     additionalHosts: []
     # -- The requested 'duration' (i.e. lifetime) of the certificate.
@@ -1827,7 +1827,7 @@ server:
     # -- Server service labels
     labels: {}
     # -- Server service type
-    type: ClusterIP
+    type: NodePort
     # -- Server service http port for NodePort service type (only if `server.service.type` is set to "NodePort")
     nodePortHttp: 30080
     # -- Server service https port for NodePort service type (only if `server.service.type` is set to "NodePort")
@@ -1908,7 +1908,7 @@ server:
 
   ingress:
     # -- Enable an ingress resource for the Argo CD server
-    enabled: true
+    enabled: false
     # -- Additional ingress annotations
     annotations: {}
     # -- Additional ingress labels
@@ -1940,7 +1940,7 @@ server:
 
     # -- Ingress TLS configuration
     tls:
-      - secretName: your-certificate-name
+      - secretName: currentcerthehe
         hosts:
           - argocd.com
 

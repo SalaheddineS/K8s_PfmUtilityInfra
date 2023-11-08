@@ -1,8 +1,7 @@
 variable "urlShortenerNameSpace" {
-  default = "argocd"
+  default = "urlshortenerapp"
   type    = string
 }
 variable "argocdNameSpace" {
   default = "argocd"
 }
-

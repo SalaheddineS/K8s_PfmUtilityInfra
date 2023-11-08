@@ -42,3 +42,10 @@ resource "helm_release" "argocd_deploy" {
     kubernetes_manifest.selfsigned_cluster_issuer,
   ]
 }
+
+resource "null_resource" "write_argocd_password_to_file" {
+  provisioner "local-exec" {
+    command = "../getArgoPassword.sh"
+  }
+  depends_on = [ helm_release.argocd_deploy ]
+}
