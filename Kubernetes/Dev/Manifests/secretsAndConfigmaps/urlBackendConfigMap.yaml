@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: urlbackendconfigmap
+  namespace: urlshortenerapp
+data:
+  DOMAIN: api.my-nginx-page.com
+  PROTOCOL: https
+  PORT: "3000"  
+  DATABASE_URL : postgres://salaheddine:boPnbCdjm0ONfaaAwPk7viGOxZMyjYO3@dpg-cl1703gp2gis73d5prug-a.oregon-postgres.render.com/urlshortenerdb_8uc9
+
