@@ -49,3 +49,5 @@ resource "null_resource" "write_argocd_password_to_file" {
   }
   depends_on = [ helm_release.argocd_deploy ]
 }
+
+
