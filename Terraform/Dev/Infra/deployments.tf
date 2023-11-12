@@ -51,3 +51,5 @@ resource "null_resource" "write_argocd_password_to_file" {
 }
 
 
+
+
