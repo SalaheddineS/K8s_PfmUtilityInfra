@@ -1,11 +1,11 @@
-cd ./Initialization
+cd ./initialization
 terraform init 
 terraform apply -auto-approve
 
-cd ../Infra
+cd ../infra
 terraform init
 terraform apply -auto-approve
 
-cd ../InfraManifests
+cd ../infra_manifests
 terraform init
 terraform apply -auto-approve

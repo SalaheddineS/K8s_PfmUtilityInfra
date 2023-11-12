@@ -14,7 +14,7 @@ resource "kubernetes_manifest" "argocd_application_deploy" {
       }
       project = "default"
       source = {
-        path            = "Kubernetes/Dev/Manifests"
+        path            = "kubernetes/dev/manifests"
         repoURL         = "https://github.com/SalaheddineS/K8s_PfmUtilityInfra"
         targetRevision  = "main"
       }

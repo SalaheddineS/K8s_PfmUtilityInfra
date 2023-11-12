@@ -45,7 +45,7 @@ resource "helm_release" "argocd_deploy" {
 
 resource "null_resource" "write_argocd_password_to_file" {
   provisioner "local-exec" {
-    command = "../getArgoPassword.sh"
+    command = "../get_argo_password.sh"
   }
   depends_on = [ helm_release.argocd_deploy ]
 }
