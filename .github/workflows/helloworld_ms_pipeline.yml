@@ -51,6 +51,6 @@ jobs:
         uses: docker/build-push-action@v5.1.0
         with:
           push: true
-          tags: 
+          tags: ${{ env.IMAGE_NAME }}
           context: ${{ env.CONTEXT }}  
       - run: echo "🍏 This job's status is ${{ job.status }}."
