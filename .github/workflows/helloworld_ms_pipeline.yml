@@ -6,6 +6,7 @@ on:
       - ui_back
       - main
       - dev
+      - staging
     paths:
       - 'pfm_services/helloworld_ms_project/**'
 env:
