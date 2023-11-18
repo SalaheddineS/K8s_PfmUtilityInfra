@@ -3,10 +3,7 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   push:
     branches:
-      - machine_learning
-      - ui_and_backend
       - main
-      - dev
     paths:
       - 'pfm_services/url_shortener_ms/**'
       

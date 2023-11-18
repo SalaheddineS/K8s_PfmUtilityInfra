@@ -2,10 +2,7 @@ name: world service pipeline
 on:
   push:
     branches:
-      - machine_learning
-      - ui_and_backend
       - main
-      - dev
     paths:
       - 'pfm_services/helloworld_ms_project/**'
 env:
