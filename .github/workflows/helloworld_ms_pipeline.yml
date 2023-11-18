@@ -1,13 +1,15 @@
-name: Hello world service pipeline
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: world service pipeline
 on:
   push:
     branches:
+      - machine_learning
+      - ui_and_backend
       - main
+      - dev
     paths:
       - 'pfm_services/helloworld_ms_project/**'
 env:
-  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/helloworldms:latest
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/helloworldms
   CONTEXT: pfm_services/helloworld_ms_project/helloworld_ms/
       
 jobs:
@@ -34,23 +36,29 @@ jobs:
       
       - name: Test
         run: dotnet test pfm_services/helloworld_ms_project/Tests --configuration Release
-      
+
+      # Only run the Docker-related steps if the changes are on the dev or main branch
       - name: Set up QEMU
+        if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main'
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
+        if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main'
         uses: docker/setup-buildx-action@v3
 
       - name: Docker Login
+        if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main'
         uses: docker/login-action@v3.0.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Docker images
+        if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v5.1.0
         with:
           push: true
-          tags: ${{ env.IMAGE_NAME }}
+          tags: ${{ env.IMAGE_NAME }}:${{ github.ref == 'refs/heads/dev' && 'dev' || github.ref == 'refs/heads/main' && 'prod' || 'latest' }}
           context: ${{ env.CONTEXT }}  
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
