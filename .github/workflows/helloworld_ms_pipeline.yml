@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - machine_learning
-      - ui_and_backend
+      - ui_back
       - main
       - dev
     paths:
