@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonar-ingress
+  namespace: urlshortenerapp
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - sonar-qube.com
+      secretName: sonaringresssecret
+  rules:
+  - host: sonar-qube.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sonarqube-service
+            port:
+              number: 80
+
