@@ -7,6 +7,7 @@ on:
       - ui_back
       - main
       - dev
+      - feature1
     paths:
       - 'pfm_services/helloworld_ms_project/**'
 
