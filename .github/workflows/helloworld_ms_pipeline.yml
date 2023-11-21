@@ -14,6 +14,7 @@ on:
 env:
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/helloworldms
   CONTEXT: pfm_services/helloworld_ms_project/helloworld_ms/
+  PROJECT_PATH: ./pfm_services/helloworld_ms_project/helloworld_ms
 
 jobs:
   Explore-GitHub-Actions:
@@ -100,5 +101,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"SalaheddinesKey" /o:"salaheddines" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet build
+          dotnet build ${{ env.PROJECT_PATH }}
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
