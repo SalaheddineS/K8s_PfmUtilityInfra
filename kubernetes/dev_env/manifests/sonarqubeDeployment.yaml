@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: urlshortenerapp
+  name: sonarqube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarqube
+  template:
+    metadata:
+      labels:
+        app: sonarqube
+    spec:
+      containers:
+      - name: sonarqube
+        image: sonarqube:latest
+        ports:
+        - containerPort: 9000
+        env:
+        - name: SONARQUBE_JDBC_URL
+          valueFrom:
+            configMapKeyRef:
+              name: urlbackendconfigmap
+              key: DATABASE_CLEAN_URL 
+        - name: SONARQUBE_JDBC_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: urlbackendconfigmap
+              key: DATABASE_USERNAME 
+        - name: SONARQUBE_JDBC_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: urlbackendconfigmap
+              key: DATABASE_PASSWORD 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarqube-service
+  namespace: urlshortenerapp
+spec:
+  selector:
+    app: sonarqube
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9000
+  type: ClusterIP

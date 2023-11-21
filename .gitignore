@@ -37,8 +37,8 @@ scripts/
 Thumbs.db
 
 # Add any other sensitive file patterns as needed
-**variable**
 
+*argopass.txt
 # Logs
 logs
 *.log
