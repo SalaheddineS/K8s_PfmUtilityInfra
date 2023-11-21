@@ -12,11 +12,14 @@ on:
       - 'pfm_services/helloworld_ms_project/**'
 
 env:
-  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/helloworldms
+  SERVICE_NAME: helloworldms
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/
   CONTEXT: pfm_services/helloworld_ms_project/helloworld_ms/
   PROJECT_PATH: ./pfm_services/helloworld_ms_project/helloworld_ms
   DEV_ENV: refs/heads/dev
   PROD_ENV: refs/heads/main
+  SONAR_KEY: SalaheddinesKey
+  SONAR_ORG: salaheddines
 
 jobs:
   Explore-GitHub-Actions:
@@ -56,17 +59,17 @@ jobs:
         uses: docker/build-push-action@v5.1.0
         with:
           push: true
-          tags: ${{ env.IMAGE_NAME }}:${{ github.ref == env.DEV_ENV && 'dev' || (github.ref == env.PROD_ENV && 'prod') || 'latest' }}
+          tags: ${{ env.IMAGE_NAME }}${{ env.SERVICE_NAME }}:${{ github.ref == env.DEV_ENV && 'dev' || (github.ref == env.PROD_ENV && 'prod') || 'latest' }}
           context: ${{ env.CONTEXT }}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available.
+          distribution: 'zulu' 
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for better relevancy of analysis
+          fetch-depth: 0  
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
@@ -90,6 +93,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"SalaheddinesKey" /o:"salaheddines" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:${{ env.SONAR_KEY }} /o:${{ env.SONAR_ORG }} /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build ${{ env.PROJECT_PATH }}
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
